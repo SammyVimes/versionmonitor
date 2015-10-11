@@ -22,3 +22,7 @@
     height: 50px !important;
     background-position: 100% center;
 }
+
+header h3 {
+    color: #ffffff;
+}

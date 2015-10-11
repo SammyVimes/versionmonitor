@@ -17,6 +17,10 @@ def test(request):
     return render(request, 'project/test.html')
 
 
+def upload_new_version_file(request, project_id):
+    return render(request, 'project/test.html')
+
+
 def project_details(request, project_id):
     project = Project.objects.get(pk=project_id)
     versions = project.application.versions.all()
