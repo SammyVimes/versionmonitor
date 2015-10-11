@@ -16,3 +16,9 @@
 .download-version {
     margin-left: 0;
 }
+
+.member-icon {
+    width: 50px !important;
+    height: 50px !important;
+    background-position: 100% center;
+}

@@ -2,7 +2,7 @@ from tkinter import Image
 from django.http import HttpResponse
 from django.shortcuts import render
 from versionmonitor import config
-from versionmonitor.model.project import Project
+from versionmonitor.model.project import Project, ProjectMember
 
 __author__ = 'Semyon'
 
@@ -25,7 +25,10 @@ def project_details(request, project_id):
     if v_count > 0:
         last_version = versions[v_count - 1].version_integer
     versions = reversed(list(versions))
-    context = {'project': project, 'versions': versions, 'last_version': last_version}
+
+    members = ProjectMember.objects.filter(project=project)
+
+    context = {'project': project, 'versions': versions, 'last_version': last_version, 'members': members}
     return render(request, 'project/details.html', context)
 
 

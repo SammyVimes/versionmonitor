@@ -28,68 +28,92 @@
     </header>
     <main class="mdl-layout__content">
         <div class="mdl-layout__tab-panel is-active" id="overview">
-            <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-                <header class="section__play-btn mdl-cell mdl-cell--3-col-desktop mdl-cell--2-col-tablet mdl-cell--4-col-phone mdl-color--teal-100 mdl-color-text--white">
-                    <img class="app-icon" src="/versionmonitor/project/{{ project.pk }}/{{ last_version }}/icon">
-                </header>
-                <div class="mdl-card mdl-cell mdl-cell--9-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
-                    <div class="mdl-card__supporting-text">
-                        <h4>{{ project.application.application_name }} ({{ project.application.package_name }})</h4>
-                        {{ project.definition }}
-                    </div>
-                    <div class="mdl-card__actions">
-                        <a href="#" class="mdl-button">Загрузить</a>
-                    </div>
-                </div>
-                <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="btn1">
-                    <i class="material-icons">more_vert</i>
-                </button>
-                <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="btn1">
-                    <li class="mdl-menu__item">Lorem</li>
-                    <li class="mdl-menu__item" disabled>Ipsum</li>
-                    <li class="mdl-menu__item">Dolor</li>
-                </ul>
-            </section>
-            <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-                <div class="mdl-card mdl-cell mdl-cell--12-col">
-                    <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
-                        <h4 class="mdl-cell mdl-cell--12-col">Версии</h4>
-                        {% for version in versions %}
-                            <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
-                                <img class="app-icon section__circle-container__circle mdl-color--primary"
-                                     src="/versionmonitor/project/{{ project.pk }}/{{ version.version_integer }}/icon">
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--6-col">
+                    <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                        <header class="section__play-btn mdl-cell mdl-cell--3-col-desktop mdl-cell--2-col-tablet mdl-cell--4-col-phone mdl-color--teal-100 mdl-color-text--white">
+                            <img class="app-icon"
+                                 src="/versionmonitor/project/{{ project.pk }}/{{ last_version }}/icon">
+                        </header>
+                        <div class="mdl-card mdl-cell mdl-cell--9-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+                            <div class="mdl-card__supporting-text">
+                                <h4>{{ project.application.application_name }}
+                                    ({{ project.application.package_name }})</h4>
+                                {{ project.definition }}
                             </div>
-                            <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
-                                <div class="mdl-cell mdl-cell--12-col">
-                                    <h5><b>Версия: </b>{{ version.version_string }}</h5>
-                                    <b>Изменения: </b>{{ version.changes }}
-                                </div>
-                                <a href="#"
-                                   class="download-version mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
-                                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
-                                            data-upgraded=",MaterialButton,MaterialRipple">
-                                        <i class="material-icons">file_download</i>
+                            <div class="mdl-card__actions">
+                                <a href="#" class="mdl-button">Загрузить</a>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                        <div class="mdl-card mdl-cell mdl-cell--12-col">
+                            <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+                                <h4 class="mdl-cell mdl-cell--12-col">Версии</h4>
+                                {% for version in versions %}
+                                    <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                                        <img class="app-icon section__circle-container__circle mdl-color--primary"
+                                             src="/versionmonitor/project/{{ project.pk }}/{{ version.version_integer }}/icon">
+                                    </div>
+                                    <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                                        <div class="mdl-cell mdl-cell--12-col">
+                                            <h5><b>Версия: </b>{{ version.version_string }}</h5>
+                                            <b>Изменения: </b>{{ version.changes }}
+                                        </div>
+                                        <a href="#"
+                                           class="download-version mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
+                                            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+                                                    data-upgraded=",MaterialButton,MaterialRipple">
+                                                <i class="material-icons">file_download</i>
                                         <span class="mdl-button__ripple-container"><span
                                                 class="mdl-ripple"></span></span></button>
-                                    Загрузить
-                                </a>
-                            </div>
-                        {% endfor %}
+                                            Загрузить
+                                        </a>
+                                    </div>
+                                {% endfor %}
 
-                    </div>
-                    <div class="mdl-card__actions">
-                        <a href="#" class="mdl-button">Все версии</a>
-                    </div>
+                            </div>
+                            <div class="mdl-card__actions">
+                                <a href="#" class="mdl-button">Все версии</a>
+                            </div>
+                        </div>
+                    </section>
                 </div>
-                <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="btn2">
-                    <i class="material-icons">more_vert</i>
-                </button>
-                <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="btn2">
-                    <li class="mdl-menu__item">Lorem</li>
-                    <li class="mdl-menu__item" disabled>Ipsum</li>
-                    <li class="mdl-menu__item">Dolor</li>
-                </ul>
-            </section>
+                <div class="mdl-cell mdl-cell--6-col">
+                    <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                        <div class="mdl-card mdl-cell mdl-cell--12-col">
+                            <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+                                <h4 class="mdl-cell mdl-cell--12-col">Участники</h4>
+                                {% for member in members %}
+                                    <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                                        <div class="member-icon member-icon section__circle-container__circle mdl-color--light-grey"
+                                             style="background-image: url({{ member.get_monogram }})"></div>
+                                    </div>
+                                    <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                                        <div class="mdl-cell mdl-cell--12-col">
+                                            <h5><b>{{ member.user.first_name }} {{ member.user.last_name }}</b></h5>
+                                            <b>Права: </b>{{ member.role }}
+                                        </div>
+                                        <a href="#"
+                                           class="download-version mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
+                                            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+                                                    data-upgraded=",MaterialButton,MaterialRipple">
+                                                <i class="material-icons">clear</i>
+                                        <span class="mdl-button__ripple-container"><span
+                                                class="mdl-ripple"></span></span></button>
+                                            Удалить
+                                        </a>
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+                            <div class="mdl-card__actions">
+                                <a href="#" class="mdl-button">Все версии</a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
         </div>
     </main>
 </div>
