@@ -8,7 +8,7 @@ __author__ = 'dsv'
 class Project(models.Model):
     application = models.ForeignKey(Application, related_name="project", null=False, blank=False)
 
-    projectName = models.CharField(name="project_name", max_length=50, null=False, blank=False)
+    project_name = models.CharField(name="project_name", max_length=50, null=False, blank=False)
 
     definition = models.TextField(name="definition", null=False, blank=False)
 

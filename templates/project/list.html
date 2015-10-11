@@ -6,5 +6,9 @@
 </head>
 <body>
 
+{% for project in projects %}
+    <a href="/versionmonitor/project/{{ project.pk }}">{{ project.project_name }}</a>
+{% endfor %}
+
 </body>
 </html>
