@@ -26,3 +26,7 @@
 header h3 {
     color: #ffffff;
 }
+
+.clickable {
+    cursor: pointer;
+}

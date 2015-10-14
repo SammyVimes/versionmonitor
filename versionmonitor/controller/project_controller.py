@@ -36,6 +36,20 @@ def project_details(request, project_id):
     return render(request, 'project/details.html', context)
 
 
+def get_apk(request, project_id, version_integer):
+    if int(version_integer) < 0:
+        return None
+    project = Project.objects.get(pk=project_id)
+    versions = project.application.versions
+    version = versions.filter(version_integer=version_integer)[0]
+    apk_uri = config.APPS_FOLDER + str(project.pk) + "\\" + str(version.version_integer) + "\\" + "app.apk"
+    try:
+        with open(apk_uri, "rb") as f:
+            return HttpResponse(f.read(), content_type="application/vnd.android.package-archive")
+    except IOError:
+        return None
+
+
 def version_icon(request, project_id, version_integer):
     if int(version_integer) < 0:
         return None
@@ -47,8 +61,7 @@ def version_icon(request, project_id, version_integer):
         with open(img_uri, "rb") as f:
             return HttpResponse(f.read(), content_type="image/jpeg")
     except IOError:
-        red = Image.new('RGBA', (1, 1), (255,0,0,0))
+        red = Image.new('RGBA', (1, 1), (255, 0, 0, 0))
         response = HttpResponse(mimetype="image/jpeg")
         red.save(response, "JPEG")
         return response
-
