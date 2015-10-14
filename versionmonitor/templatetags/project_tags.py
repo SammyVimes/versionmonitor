@@ -14,6 +14,7 @@ def project_last_version(project):
         last_version = versions[v_count - 1].version_integer
     return last_version
 
+
 @register.simple_tag
 def project_last_version_string(project):
     versions = project.application.versions.all()

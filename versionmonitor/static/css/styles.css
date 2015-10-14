@@ -30,3 +30,7 @@ header h3 {
 .clickable {
     cursor: pointer;
 }
+
+a {
+    text-decoration: none;
+}

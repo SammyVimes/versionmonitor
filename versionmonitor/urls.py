@@ -16,9 +16,11 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from versionmonitor.controller import urls
+from versionmonitor.controller import api_urls
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^versionmonitor/', include('registration.backends.simple.urls')),
-    url(r'^versionmonitor/project/', include(urls))
+    url(r'^versionmonitor/project/', include(urls)),
+    url(r'^versionmonitor/api/', include(api_urls))
 ]
