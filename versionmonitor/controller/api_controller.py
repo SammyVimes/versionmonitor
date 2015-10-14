@@ -1,3 +1,4 @@
+import os
 from tkinter import Image
 from django.core import serializers
 from django.http import HttpResponse, JsonResponse
@@ -75,7 +76,10 @@ def get_apk(request, project_id, version_integer):
     apk_uri = config.APPS_FOLDER + str(project.pk) + "\\" + str(version.version_integer) + "\\" + "app.apk"
     try:
         with open(apk_uri, "rb") as f:
-            return HttpResponse(f.read(), content_type="application/vnd.android.package-archive")
+            content_length = os.path.getsize(apk_uri)
+            response = HttpResponse(f.read(), content_type="application/vnd.android.package-archive")
+            response['Content-Length'] = content_length
+            return response
     except IOError:
         return None
 
@@ -89,7 +93,10 @@ def version_icon(request, project_id, version_integer):
     img_uri = config.APPS_FOLDER + str(project.pk) + "\\" + str(version.version_integer) + "\\" + "icon.png"
     try:
         with open(img_uri, "rb") as f:
-            return HttpResponse(f.read(), content_type="image/jpeg")
+            content_length = os.path.getsize(img_uri)
+            response = HttpResponse(f.read(), content_type="image/jpeg")
+            response['Content-Length'] = content_length
+            return response
     except IOError:
         red = Image.new('RGBA', (1, 1), (255, 0, 0, 0))
         response = HttpResponse(mimetype="image/jpeg")
