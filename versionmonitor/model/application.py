@@ -4,7 +4,7 @@ __author__ = 'dsv'
 
 
 class Application(models.Model):
-    package_name = models.CharField(name="package_name", max_length=25, null=False)
+    package_name = models.CharField(name="package_name", max_length=50, null=False)
 
     application_name = models.CharField(name="application_name", max_length=50, null=False)
 

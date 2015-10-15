@@ -32,10 +32,11 @@
         <div class="mdl-layout__tab-panel is-active" id="overview">
             <div class="mdl-grid">
                 {% for project in projects %}
-                    <div class="mdl-cell--6-col mdl-grid mdl-shadow--2dp clickable project-card"
-                         data-project="{{ project.pk }}">
+                    <div class="mdl-cell--3-col"></div>
+                    <div class="mdl-cell--6-col mdl-grid mdl-shadow--2dp clickable project-card mdl-card"
+                         data-project="{{ project.pk }}" style="margin-top: 10px;">
                         <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
-                            <img class="app-icon section__circle-container__circle mdl-color--primary"
+                            <img class="app-icon section__circle-container__circle"
                                  src="/versionmonitor/project/{{ project.pk }}/{% project_last_version project %}/icon">
                         </div>
                         <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
@@ -54,6 +55,7 @@
                             </a>
                         </div>
                     </div>
+                    <div class="mdl-cell--3-col"></div>
                 {% endfor %}
             </div>
         </div>

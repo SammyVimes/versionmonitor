@@ -34,3 +34,7 @@ header h3 {
 a {
     text-decoration: none;
 }
+
+.project-card.mdl-card {
+    flex-direction: row;
+}
