@@ -77,8 +77,46 @@ def login(request):
 login.csrf_exempt = True
 
 
+def error(reason):
+    return HttpResponse(simplejson.dumps({'error': reason}), content_type="application/json")
+
+
+def __get_user(request):
+    key = request.GET['key']
+    api_user = None
+    try:
+        api_user = ApiUser.objects.get(key=key)
+    except ApiUser.DoesNotExist:
+        return None
+    user = api_user.user
+    return user
+
+
+def __get_user_projects(user):
+    project_members = None
+    try:
+        project_members = ProjectMember.objects.filter(user=user)
+    except ProjectMember.DoesNotExist:
+        return None
+    all_projects = [member.project for member in project_members]
+    return all_projects
+
+
+def __check_user_access(user, project):
+    try:
+        return ProjectMember.objects.filter(user=user, project=project).count() > 0
+    except ProjectMember.DoesNotExist:
+        pass
+    return False
+
+
 def index(request):
-    all_projects = Project.objects.all()
+    user = __get_user(request)
+    if not user:
+        return error('NOT_AUTHORIZED')
+    all_projects = __get_user_projects(user)
+    if not all_projects:
+        return error('NOT_PARTICIPATING_IN_PROJECTS')
     projects = []
     for p in all_projects:
         a = p.application
@@ -97,7 +135,12 @@ def index(request):
 
 
 def project_details(request, project_id):
+    user = __get_user(request)
+    if not user:
+        return error('NOT_AUTHORIZED')
     project = Project.objects.get(pk=project_id)
+    if not __check_user_access(user, project):
+        return error('ACCESS_DENIED')
     versions = project.application.versions.all()
     versions = reversed(list(versions))
     proj_dic = project_to_dic(project)
@@ -112,7 +155,13 @@ def project_details(request, project_id):
 def get_apk(request, project_id, version_integer):
     if int(version_integer) < 0:
         return None
+    user = __get_user(request)
+    if not user:
+        return error('NOT_AUTHORIZED')
     project = Project.objects.get(pk=project_id)
+    if not __check_user_access(user, project):
+        return error('ACCESS_DENIED')
+
     versions = project.application.versions
     version = versions.filter(version_integer=version_integer)[0]
     apk_uri = config.APPS_FOLDER + str(project.pk) + "/" + str(version.version_integer) + "/" + "app.apk"
