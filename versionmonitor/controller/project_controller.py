@@ -43,7 +43,7 @@ def get_apk(request, project_id, version_integer):
     project = Project.objects.get(pk=project_id)
     versions = project.application.versions
     version = versions.filter(version_integer=version_integer)[0]
-    apk_uri = config.APPS_FOLDER + str(project.pk) + "\\" + str(version.version_integer) + "\\" + "app.apk"
+    apk_uri = config.APPS_FOLDER + str(project.pk) + "/" + str(version.version_integer) + "/" + "app.apk"
     try:
         with open(apk_uri, "rb") as f:
             content_length = os.path.getsize(apk_uri)
@@ -60,7 +60,7 @@ def version_icon(request, project_id, version_integer):
     project = Project.objects.get(pk=project_id)
     versions = project.application.versions
     version = versions.filter(version_integer=version_integer)[0]
-    img_uri = config.APPS_FOLDER + str(project.pk) + "\\" + str(version.version_integer) + "\\" + "icon.png"
+    img_uri = config.APPS_FOLDER + str(project.pk) + "/" + str(version.version_integer) + "/" + "icon.png"
     try:
         with open(img_uri, "rb") as f:
             content_length = os.path.getsize(img_uri)

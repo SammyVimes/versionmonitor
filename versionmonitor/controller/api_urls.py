@@ -11,6 +11,8 @@ urlpatterns = [
     url(r'^project/(?P<project_id>[0-9]+)/(?P<version_integer>[0-9]+)/icon$', api_controller.version_icon,
         name='api_version_icon'),
 
-    url(r'^project/(?P<project_id>[0-9]+)/(?P<version_integer>[0-9]+)/apk', api_controller.get_apk,
-        name='api_version_apk')
+    url(r'^project/(?P<project_id>[0-9]+)/(?P<version_integer>[0-9]+)/apk$', api_controller.get_apk,
+        name='api_version_apk'),
+
+    url(r'^login$', api_controller.login, name='login')
 ]
