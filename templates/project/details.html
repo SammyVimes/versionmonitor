@@ -23,8 +23,13 @@
 <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
-        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+        <div class="mdl-layout__header-row">
             <h3>{{ project.project_name }}</h3>
+            <div class="mdl-layout-spacer"></div>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="/versionmonitor/project/">Список проектов</a>
+                <a class="mdl-navigation__link" href="/versionmonitor/logout/">Выход</a>
+            </nav>
         </div>
     </header>
     <main class="mdl-layout__content">
@@ -43,7 +48,8 @@
                                 {{ project.definition }}
                             </div>
                             <div class="mdl-card__actions">
-                                <a href="/versionmonitor/project/{{ project.pk }}/{{ last_version }}/apk" class="mdl-button">Загрузить</a>
+                                <a href="/versionmonitor/project/{{ project.pk }}/{{ last_version }}/apk"
+                                   class="mdl-button">Загрузить</a>
                             </div>
                         </div>
                     </section>

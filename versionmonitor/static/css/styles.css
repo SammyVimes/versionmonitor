@@ -38,3 +38,7 @@ a {
 .project-card.mdl-card {
     flex-direction: row;
 }
+
+.mdl-layout__header-row .mdl-navigation__link {
+    color: white !important;
+}

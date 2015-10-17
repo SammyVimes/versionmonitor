@@ -1,21 +1,104 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Авторизация</title>
+
+    <link rel="shortcut icon" href="images/favicon.png">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static "css/material.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/template_styles.css" %}">
+    <link rel="stylesheet" href="{% static "css/styles.css" %}">
+    <script src="{% static "js/material.min.js" %}"></script>
+    <script src="{% static "js/jquery-2.1.4.min.js" %}"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
 </head>
-<body>
-    {% block body_block %}
-    <h1>Login</h1>
-            <form method="post" action=".">
-                    {% csrf_token %}
-                    {{ form.as_p }}
+<body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+            <h3>Авторизация</h3>
+        </div>
+    </header>
+    <main class="mdl-layout__content">
+        <div class="mdl-layout__tab-panel is-active" id="overview">
+            <div class="mdl-grid">
+                <section
+                        class="mdl-card mdl-grid mdl-grid--no-spacing mdl-shadow--2dp mdl-cell mdl-cell--4-col section--center"
+                        style="margin: 0 auto;">
+                    {% block body_block %}
+                        <form method="post" action=".">
+                            {% csrf_token %}
 
-                    <input type="submit" value="Log in" />
-                    <input type="hidden" name="next" value="{{ next }}" />
-                    </form>
+                            <div class="mdl-grid">
+                                <div class="mdl-textfield mdl-js-textfield">
+                                    <input class="mdl-textfield__input" id="id_username" maxlength="254"
+                                           name="username" type="text"/>
+                                    <label class="mdl-textfield__label" for="id_username">Имя пользователя</label>
+                                </div>
+                            </div>
+                            <div class="mdl-grid">
+                                <div class="mdl-textfield mdl-js-textfield">
+                                    <input class="mdl-textfield__input" name="password" type="password"
+                                           id="id_password"/>
+                                    <label class="mdl-textfield__label" for="password">Пароль</label>
+                                </div>
+                            </div>
+                            <div class="mdl-grid">
+                                <button type="submit"
+                                        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary"
+                                        style="color: #fff;">
+                                    Войти
+                                </button>
+                            </div>
 
-            <p>Not  a member? <a href="{% url 'registration_register' %}">Register</a>!</p>
-    {% endblock %}
+                            <input type="hidden" name="next" value="">
+                        </form>
+                    {% endblock %}
+                    <div class="mdl-card__actions">
+                        Not a member?<a class="mdl-button" href="{% url 'registration_register' %}">Register</a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+</div>
+
+<style>
+
+    .mdl-card.mdl-grid {
+        padding: 15px;
+    }
+
+    .mdl-demo .mdl-card__actions {
+        padding: 0;
+    }
+
+    .demo-card-wide.mdl-card {
+        width: 512px;
+    }
+
+    .demo-card-wide > .mdl-card__title {
+        color: #fff;
+        height: 176px;
+        background: url('http://www.getmdl.io/assets/demos/welcome_card.jpg') center / cover;
+    }
+
+    .demo-card-wide > .mdl-card__menu {
+        color: #fff;
+    }
+
+    #file_progress {
+        width: 100%;
+    }
+
+</style>
 </body>
 </html>

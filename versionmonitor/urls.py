@@ -15,11 +15,21 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.contrib.auth import logout
+from django.shortcuts import redirect
 from versionmonitor.controller import urls
 from versionmonitor.controller import api_urls
 
+
+def logout_fn(request):
+    user = request.user
+    if user and user.is_authenticated():
+        logout(request)
+    return redirect('/versionmonitor/login/')
+
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^versionmonitor/logout/$', logout_fn, name="logout"),
     url(r'^versionmonitor/', include('registration.backends.simple.urls')),
     url(r'^versionmonitor/project/', include(urls)),
     url(r'^versionmonitor/api/', include(api_urls))
