@@ -37,7 +37,7 @@
             <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--6-col">
                     <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-                        <header class="section__play-btn mdl-cell mdl-cell--3-col-desktop mdl-cell--2-col-tablet mdl-cell--4-col-phone mdl-color--teal-100 mdl-color-text--white">
+                        <header class="section__play-btn mdl-cell mdl-cell--3-col-desktop mdl-cell--2-col-tablet mdl-cell--4-col-phone app-img mdl-color-text--white">
                             <img class="app-icon"
                                  src="/versionmonitor/project/{{ project.pk }}/{{ last_version }}/icon">
                         </header>
@@ -59,7 +59,7 @@
                                 <h4 class="mdl-cell mdl-cell--12-col">Версии</h4>
                                 {% for version in versions %}
                                     <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
-                                        <img class="app-icon section__circle-container__circle mdl-color--primary"
+                                        <img class="app-icon section__circle-container__circle version-icon"
                                              src="/versionmonitor/project/{{ project.pk }}/{{ version.version_integer }}/icon">
                                     </div>
                                     <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
@@ -156,6 +156,10 @@
         width: 400px;
         position: relative;
         margin: 10% auto;
+    }
+ 
+    header.app-img, .version-icon {
+	background-color: #E9E9E9;
     }
 
     .demo-card-wide.mdl-card {
