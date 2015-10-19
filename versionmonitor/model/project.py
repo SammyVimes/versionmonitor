@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.auth.models import User
 from django.db import models
 from versionmonitor.model.application import Application
@@ -7,6 +9,7 @@ from urllib import parse
 __author__ = 'dsv'
 
 
+@python_2_unicode_compatible
 class Project(models.Model):
     application = models.ForeignKey(Application, related_name="project", null=False, blank=False)
 
@@ -14,13 +17,20 @@ class Project(models.Model):
 
     definition = models.TextField(name="definition", null=False, blank=False)
 
+    def __str__(self):
+       return self.project_name
 
+
+@python_2_unicode_compatible
 class ProjectMember(models.Model):
 
     MEMBER_ROLES = (
         ('A', 'Admin'),
         ('N', 'Normal'),
     )
+
+    def __str__(self):
+       return self.user.username + '@' + self.project.project_name
 
     project = models.ForeignKey(Project, related_name="+", null=False, blank=False)
 
