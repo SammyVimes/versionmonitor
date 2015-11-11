@@ -2,8 +2,12 @@ import os
 from tkinter import Image
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+import simplejson
 from versionmonitor import config
+from versionmonitor.controller import push
+from versionmonitor.controller.push import send_push
 from versionmonitor.model.project import Project, ProjectMember
+from versionmonitor.model.usr import ApiUser
 
 __author__ = 'Semyon'
 
@@ -61,6 +65,29 @@ def project_details(request, project_id):
 
     context = {'project': project, 'versions': versions, 'last_version': last_version, 'members': members}
     return render(request, 'project/details.html', context)
+
+
+def notify_update(request, project_id):
+    project = Project.objects.get(pk=project_id)
+    user = request.user
+    if not user or not user.is_authenticated():
+        return None
+    if not __check_user_access(user, project):
+        return None
+    versions = project.application.versions.all()
+    last_version = -1
+    v_count = versions.count()
+    if v_count > 0:
+        last_version = versions[v_count - 1].version_integer
+    versions = reversed(list(versions))
+    members = ProjectMember.objects.filter(project=project)
+    for member in members:
+         try:
+            api_user = ApiUser.objects.get(user=member.user)
+            send_push("Вышла новая версия приложения " + project.application.application_name + "!", api_user.push_id)
+         except ApiUser.DoesNotExist:
+            pass
+    return HttpResponse(simplejson.dumps({'success': True}), content_type="application/json")
 
 
 def get_apk(request, project_id, version_integer):

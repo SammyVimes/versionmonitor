@@ -272,7 +272,22 @@
         });
 
         $("#add").click(function () {
-            $("#add_version_dialog").toggleClass("closed");
+            //$("#add_version_dialog").toggleClass("closed");
+
+            $.ajax({
+                url: "/versionmonitor/project/" + project_id + "/notifyupdate/",
+                type: 'GET',
+                async: true,
+                success: function (data) {
+                    alert(data)
+                },
+                error: function (data) {
+                    alert(data)
+                },
+                fail: function (data) {
+                    alert(data)
+                }
+            });
         });
         $("#close_modal").click(function () {
             $("#add_version_dialog").toggleClass("closed");

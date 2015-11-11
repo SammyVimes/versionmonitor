@@ -8,6 +8,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 import simplejson as simplejson
 from versionmonitor import config
+from versionmonitor.controller.push import create_user_token
 from versionmonitor.model.project import Project, ProjectMember
 from versionmonitor.model.usr import ApiUser
 from versionmonitor.templatetags import project_tags
@@ -59,10 +60,15 @@ def login(request):
             pass
         if not api_user:
             key = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(25))
-            api_user = ApiUser(key=key, user=user)
+            push_id = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(25))
+            api_user = ApiUser(key=key, user=user, push_id=push_id)
             api_user.save()
+        push_token, push_token_timestamp = create_user_token(api_user)
         response = {
             'key': api_user.key,
+            'pushId': api_user.push_id,
+            'pushToken': push_token,
+            'pushTokenTimestamp': push_token_timestamp,
             'success': True
         }
         return HttpResponse(simplejson.dumps(response), content_type="application/json")
@@ -118,6 +124,9 @@ def index(request):
     if not all_projects:
         return error('NOT_PARTICIPATING_IN_PROJECTS')
     projects = []
+    response = {
+        'projects': projects
+    }
     for p in all_projects:
         a = p.application
         last_version = project_tags.project_last_version(p)
@@ -131,7 +140,7 @@ def index(request):
             'definition': p.definition
         }
         projects.append(jsonp)
-    return HttpResponse(simplejson.dumps(projects), content_type="application/json")
+    return HttpResponse(simplejson.dumps(response), content_type="application/json")
 
 
 def project_details(request, project_id):
