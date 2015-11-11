@@ -9,6 +9,7 @@
 
     <link rel="shortcut icon" href="images/favicon.png">
     {% load staticfiles %}
+    {% load project_tags %}
     <link rel="stylesheet" href="{% static "css/material.min.css" %}">
     <link rel="stylesheet" href="{% static "css/template_styles.css" %}">
     <link rel="stylesheet" href="{% static "css/styles.css" %}">
@@ -65,6 +66,8 @@
                                     <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
                                         <div class="mdl-cell mdl-cell--12-col">
                                             <h5><b>Версия: </b>{{ version.version_string }}</h5>
+                                            <b>Дата: </b>{% format_date version.version_date %}
+                                            <br/>
                                             <b>Изменения: </b>{{ version.changes }}
                                         </div>
                                         <a href="/versionmonitor/project/{{ project.pk }}/{{ version.version_integer }}/apk"

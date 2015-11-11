@@ -29,6 +29,8 @@ class ApplicationVersion(models.Model):
 
     version_string = models.CharField(name="version_string", null=False, blank=False, max_length=10)
 
+    version_date = models.DateTimeField(name="version_date", null=False, blank=False)
+
     changes = models.TextField()
 
     def __str__(self):

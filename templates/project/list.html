@@ -46,6 +46,8 @@
                         <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
                             <div class="mdl-cell mdl-cell--12-col">
                                 <h5>{{ project.project_name }}</h5>
+                                <b>Дата последней версии: </b>{% project_last_version_date_string project %}
+                                <br/>
                                 <b>Последняя версия: </b>{% project_last_version_string project %}
                             </div>
                             <a href="/versionmonitor/project/{{ project.pk }}/{% project_last_version project %}/apk"
