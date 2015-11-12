@@ -63,11 +63,14 @@ def login(request):
             push_id = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(25))
             api_user = ApiUser(key=key, user=user, push_id=push_id)
             api_user.save()
-        push_token, push_token_timestamp = create_user_token(api_user)
+        push_token, channel_token, push_token_timestamp = create_user_token(api_user)
+        print(push_token)
+        print(channel_token)
         response = {
             'key': api_user.key,
             'pushId': api_user.push_id,
             'pushToken': push_token,
+            'channelToken': channel_token,
             'pushTokenTimestamp': push_token_timestamp,
             'success': True
         }
