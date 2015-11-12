@@ -29,10 +29,10 @@ def create_user_token(api_user):
 
 def send_push(message, push_id):
     params = {
-    "watch": "true",
-    "channel": "versionmonitor",
-    "data": message,
-    "client": push_id
+        "watch": "true",
+        "channel": "versionmonitor",
+        "data": message,
+        "client": push_id
     }
     client.add("publish", params)
     result, error = client.send()

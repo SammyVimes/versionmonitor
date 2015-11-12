@@ -84,7 +84,11 @@ def notify_update(request, project_id):
     for member in members:
          try:
             api_user = ApiUser.objects.get(user=member.user)
-            send_push("Вышла новая версия приложения " + project.application.application_name + "!", api_user.push_id)
+            msg = {
+                'text': "Вышла новая версия приложения " + project.application.application_name + "!",
+                'project_id': str(project_id)
+            }
+            send_push(simplejson.dumps(msg), api_user.push_id)
          except ApiUser.DoesNotExist:
             pass
     return HttpResponse(simplejson.dumps({'success': True}), content_type="application/json")
